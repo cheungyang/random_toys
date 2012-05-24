@@ -1,23 +1,53 @@
 // ==UserScript==
-// @name       Data driven layout design
+// @name       Data driven layout design for layouts
 // @namespace  http://start.producersdesktop.yahoo.com:9999/v1/index.html
 // @version    0.1
 // @description  welcome!
 // @match      http://*.yahoo.com:9999/panes/media/layout_editor*
+// @match      http://*.yahoo.com:9999/panes/media/module_instance_editing_form*
 // @copyright  2012+, ycheung@
-// @resource   customCSS2 http://craigsworks.com/projects/qtip2/packages/latest/jquery.qtip.min.css
+// @resource   customCSS2 http://mallocworks.s3.amazonaws.com/hackday2012S/css/tooltip.css
 // @require    http://code.jquery.com/jquery-1.7.2.min.js
 // @require    http://craigsworks.com/projects/qtip2/packages/latest/jquery.qtip.min.js
+// @require    http://www.geertdedeckere.be/shop/graphup/download/script/jquery.graphup.pack.js
 // ==/UserScript==
 
+
 GM_addStyle (GM_getResourceText ("customCSS2"));
-GM_addStyle(".ybtn { border: 1px red solid; margin: 2px; }");
+GM_addStyle(".ybtn { margin-left: 10px; } .ybtn img { width: 25px; height: 25px;}");
+GM_addStyle(".stat{width: 460px; margin:0px; padding:0px; max-width:460px;} .stat_left{width: 150px; float: left; background: #F0F0F0; margin:0px; padding: 10px;} .stat_right{250px; float: right; margin:0px;} .icon{ width:100px; text-align: center;}");
+GM_addStyle(".statnow{font-size: 36px; line-height: 45px;} .green{color:green;} .red{color:red;} .from{font-size: 14px; float:right;} .updated{float: right; color: #666;} .plot{width:250px; height: 160px;}");
+GM_addStyle(".plot th { width:4em; text-align:right; padding-right:10px;} .plot td { width:20em; text-align:right; } .plot span { padding:0.1em 0.2em; background:rgba(255,255,255,0.5); -moz-border-radius:2px; } .plot .bar { -moz-border-radius-topright:5px; -moz-border-radius-bottomright:5px; -webkit-border-top-right-radius:5px; -webkit-border-bottom-right-radius:5px; }");
+GM_addStyle(".mtooltip{line-height: 18px;} .mtooltip img{height: 15px; padding-right: 5px;} .mtooltip th{font-weight: bold;}");
+
+var PV_MIN = 100;
+var PV_MID = 1000;
+var MONEY_MIN = 100;
+var MONEY_MID = 1000;
+var TIME_MIN = 100;
+var TIME_MID = 1000;
+
 
 var data={
+    "TBS2": {
+        "time": 121,
+        "pv"  : 113,
+        "money" : 341,
+        "exp" : {
+            "layout_title": {
+                "html": "hihi from moduleA fieldA",
+                "def" : "hihi"
+            },
+            "inherit_target": {
+                "html": "hihi from moduleA fieldB",
+                "def" : null
+            }            
+        }
+    },
     "NT1": {
-        "time": 1,
-        "pv"  : 1,
-        "money" : 1,
+        "time": 121,
+        "pv"  : 113,
+        "money" : 341,
         "exp" : {
             "layout_title": {
                 "html": "hihi from moduleA fieldA",
@@ -30,9 +60,9 @@ var data={
         }
     },
     "MediaEmpty": {
-        "time": 0,
-        "pv"  : 0,
-        "money" : 1,
+        "time": 4560,
+        "pv"  : 40,
+        "money" : 451,
         "exp" : {
             "fieldA": {
                 "html": "hihi from moduleA fieldA",
@@ -45,9 +75,9 @@ var data={
         }
     },
     "MediaGalleryListTabbedCA": {
-        "time": 1,
-        "pv"  : 1,
-        "money" : 1,
+        "time": 341,
+        "pv"  : 761,
+        "money" : 21,
         "exp" : {
             "fieldA": {
                 "html": "hihi from moduleA fieldA",
@@ -60,9 +90,9 @@ var data={
         }
     },
     "MediaCOKEMostViewedPhotos": {
-        "time": 1,
-        "pv"  : 1,
-        "money" : 1,
+        "time": 671,
+        "pv"  : 2131,
+        "money" : 231,
         "exp" : {
             "fieldA": {
                 "html": "hihi from moduleA fieldA",
@@ -75,9 +105,9 @@ var data={
         }
     },    
     "LREC": {
-        "time": 1,
-        "pv"  : 1,
-        "money" : 1,
+        "time": 8901,
+        "pv"  : 71,
+        "money" : 861,
         "exp" : {
             "fieldA": {
                 "html": "hihi from moduleA fieldA",
@@ -90,9 +120,9 @@ var data={
         }
     },
     "MREC": {
-        "time": 1,
-        "pv"  : 1,
-        "money" : 1,
+        "time": 51,
+        "pv"  : 671,
+        "money" : 441,
         "exp" : {
             "fieldA": {
                 "html": "hihi from moduleA fieldA",
@@ -105,9 +135,9 @@ var data={
         }
     },
     "MIP": {
-        "time": 1,
-        "pv"  : 1,
-        "money" : 1,
+        "time": 341,
+        "pv"  : 21,
+        "money" : 31,
         "exp" : {
             "fieldA": {
                 "html": "hihi from moduleA fieldA",
@@ -120,9 +150,9 @@ var data={
         }
     },
     "MediaAdsDarla": {
-        "time": 1,
-        "pv"  : 1,
-        "money" : 1,
+        "time": 161,
+        "pv"  : 751,
+        "money" : 31,
         "exp" : {
             "fieldA": {
                 "html": "hihi from moduleA fieldA",
@@ -135,15 +165,15 @@ var data={
         }
     },
     "MediaFreeHtmlEditorial": {
-        "time": 1,
-        "pv"  : 1,
-        "money" : 1,
+        "time": 31,
+        "pv"  : 15,
+        "money" : 31,
         "exp" : {
-            "fieldA": {
+            "instance_title": {
                 "html": "hihi from moduleA fieldA",
                 "def" : "hihi"
             },
-            "fieldB": {
+            "instance_description": {
                 "html": "hihi from moduleA fieldB",
                 "def" : null
             }            
@@ -151,92 +181,355 @@ var data={
     }
 };
 
-    
+
+var original_stats=null;
 
 $(document).ready(function()
-{
-    //setTimeout("calculateTime()",1000)
+{    
+    $('body').append('<div id="stagearea" style="display:none;">');
+    
     setupGrowl();
+    //FIXME: this is not working
+    setTimeout(function(){ setupStatsBar()}(setupStatsBar) , 1000);
+    
     
     //upper controls
     $(".controls_top")
-        .append('<span id="pv" class="ybtn"><a href="#" title="a">pv</a></span>')
-        .append('<span id="rev" class="ybtn"><a href="#" title="b">revenue</a></span>')
-        .append('<span id="time" class="ybtn"><a href="#" title="c">time</a></span>');
+        .append('<span id="time" class="ybtn"><a href="#" title="Time"><img src=""/></a></span>')
+        .append('<span id="pv" class="ybtn"><a href="#" title="PV"><img src=""/></a></span>')
+        .append('<span id="money" class="ybtn"><a href="#" title="Revenue"><img src=""/></a></span>');        
 
     //display of the upper controls
-    $('.ybtn a').each(function(){
-		$(this).qtip({
-			content: {
-				// Set the text to an image HTML string with the correct src URL to the loading image you want to use
-				text: 'hi',
-				/*ajax: {
-					url: $(this).attr('rel') // Use the rel attribute of each element for the url to load
-				},*/
-				title: {
-					text: $(this).text(), // Give the tooltip a title using each elements text
-					button: false
-				}
-			},
-			position: {
-				at: 'bottom center', // Position the tooltip above the link
-				my: 'top center',
-				viewport: $(window), // Keep the tooltip on-screen at all times
-				effect: false // Disable positioning animation
-			},
-			show: {
-				event: 'hover',
-				solo: true // Only show one tooltip at a time
-			},
-			hide: 'unfocus',
-			style: {
-				classes: 'ui-tooltip-wiki ui-tooltip-light ui-tooltip-shadow'
-			}
-		})
-	});
-	       
-    //FIXME: growl example when module listing has been changed
+    $("#pv a").qtip({
+        content: {
+            // Set the text to an image HTML string with the correct src URL to the loading image you want to use
+            text: $("#pv_stat"),
+            title: {
+                text: "<center>CTR Estimations</center>", // Give the tooltip a title using each elements text
+                button: false
+            }
+        },
+        position: {
+            at: 'bottom center', // Position the tooltip above the link
+            my: 'top center',
+            viewport: $(window), // Keep the tooltip on-screen at all times
+            effect: false // Disable positioning animation
+        },
+        show: {
+            event: 'hover',
+            solo: true // Only show one tooltip at a time
+        },
+        hide: 'unfocus',
+        style: {
+            classes: 'ui-tooltip-wiki ui-tooltip-light ui-tooltip-shadow stat',
+            width: '460px'
+        }
+    });
+    $("#time a").qtip({
+        content: {
+            // Set the text to an image HTML string with the correct src URL to the loading image you want to use
+            text: $("#time_stat"),
+            title: {
+                text: "<center>Loading Time Estimations</center>", // Give the tooltip a title using each elements text
+                button: false
+            }
+        },
+        position: {
+            at: 'bottom center', // Position the tooltip above the link
+            my: 'top center',
+            viewport: $(window), // Keep the tooltip on-screen at all times
+            effect: false // Disable positioning animation
+        },
+        show: {
+            event: 'hover',
+            solo: true // Only show one tooltip at a time
+        },
+        hide: 'unfocus',
+        style: {
+            classes: 'ui-tooltip-wiki ui-tooltip-light ui-tooltip-shadow stat',
+            width: '460px'
+        }
+    });
+    $("#money a").qtip({
+        content: {
+            // Set the text to an image HTML string with the correct src URL to the loading image you want to use
+            text: $("#money_stat"),
+            title: {
+                text: "<center>Revenue Estimations</center>", // Give the tooltip a title using each elements text
+                button: false
+            }
+        },
+        position: {
+            at: 'bottom center', // Position the tooltip above the link
+            my: 'top center',
+            viewport: $(window), // Keep the tooltip on-screen at all times
+            effect: false // Disable positioning animation
+        },
+        show: {
+            event: 'hover',
+            solo: true // Only show one tooltip at a time
+        },
+        hide: 'unfocus',
+        style: {
+            classes: 'ui-tooltip-wiki ui-tooltip-light ui-tooltip-shadow stat',
+            width: '460px'
+        }
+    });    
+    
+
     $('.ybtn a').click(function(event) { 
-        calculateAll();
-        createGrowl($(this).text(), $(this).text(), false);        
+        updateStatsBar(true);
         event.preventDefault(); 
     });
     
+    /*
+    $('#time').hover(function(event) { drawGraphs("time"); });
+    $('#pv').hover(function(event) { drawGraphs("pv"); });
+    $('#money').hover(function(event) { drawGraphs("money"); });
+    */
+    $('body').keypress(function(e) { if(e.keyCode == 13) { updateStatsBar(true); }}); //another trick
+    
+    
     //FIXME: experiment results in module page
-    $('.yet-bd > ol > .field-wrapper').each(function(){
-        //create tooltip content
-        if (setupTooltips($(this))){
-        //run qtip
-            $(this).qtip({
-                content: {
-                    // Set the text to an image HTML string with the correct src URL to the loading image you want to use
-                    text: $('#tooltip_'+$(this).attr("id")),
-                    title: {
-                        text: $(this).find("label").text(),
-                        button: false
-                    }
-                },
-                position: {
-                    at: 'left top', // Position the tooltip above the link
-                    my: 'right top',
-                    viewport: $(window), // Keep the tooltip on-screen at all times
-                    effect: true, // Disable positioning animation
-                    adjust: { x: -650 },
-                },
-                show: {
-                    event: 'hover',
-                    solo: true // Only show one tooltip at a time
-                },
-                hide: 'unfocus',
-                style: {
-                    //classes: 'ui-tooltip-wiki ui-tooltip-light ui-tooltip-shadow'
-                }
-            });
-        }        
-	});
+    $('.yet-bd > ol > .field-wrapper').each(function(){ setupTooltips($(this)); });
+    $('.yet-bd > fieldset > ol > .field-wrapper').each(function(){ setupTooltips($(this)); });
+    
+    //FIXME: in new module page
+    $('#module_category').change(function(){
+        $('li[id^=yui-gen]').each(function(){ setupModuleTooltips($(this)); });
+    });
+    $('li[id^=yui-gen]').each(function(){ setupModuleTooltips($(this)); }); //for the first set
 
 });
 
+
+var updateStatsBar = function(isFirst){
+
+    var stats = calculateAll();
+    
+    if (original_stats==null || original_stats.money==0){ //a trick
+        original_stats=stats;        
+    }    
+    $("#pv_left .orig").text(original_stats.pv);
+    $("#money_left .orig").text(original_stats.money);
+    $("#time_left .orig").text(original_stats.time);
+    
+    
+    //update value
+    $("#pv_left .statnow").text(stats.pv);
+    if (stats.pv < original_stats.pv){
+        $("#pv_left .statnow").addClass("red").removeClass("green");
+        $("#pv_left .trend").attr("src", "http://mallocworks.s3.amazonaws.com/hackday2012S/img/down.png");
+    } else if (stats.pv > original_stats.pv){
+        $("#pv_left .statnow").addClass("green").removeClass("red");
+        $("#pv_left .trend").attr("src", "http://mallocworks.s3.amazonaws.com/hackday2012S/img/up.png");
+    } else {
+        $("#pv_left .statnow").removeClass("green").removeClass("red");
+        $("#pv_left .trend").attr("src", "");
+    }
+    
+    $("#money_left .statnow").text(stats.money);
+    if (stats.money < original_stats.money){
+        $("#money_left .statnow").addClass("red").removeClass("green");
+        $("#money_left .trend").attr("src", "http://mallocworks.s3.amazonaws.com/hackday2012S/img/down.png");
+    } else if (stats.money > original_stats.money){
+        $("#money_left .statnow").addClass("green").removeClass("red");
+        $("#money_left .trend").attr("src", "http://mallocworks.s3.amazonaws.com/hackday2012S/img/up.png");
+    } else {
+        $("#money_left .statnow").removeClass("green").removeClass("red");
+        $("#money_left .trend").attr("src", "");
+    }
+    
+    $("#time_left .statnow").text(stats.time);
+    if (stats.time < original_stats.time){
+        $("#time_left .statnow").addClass("green").removeClass("red");
+        $("#time_left .trend").attr("src", "http://mallocworks.s3.amazonaws.com/hackday2012S/img/up.png");        
+    } else if (stats.time > original_stats.time){
+        $("#time_left .statnow").addClass("red").removeClass("green");
+        $("#time_left .trend").attr("src", "http://mallocworks.s3.amazonaws.com/hackday2012S/img/down.png");        
+    } else {
+        $("#time_left .statnow").removeClass("red").removeClass("green");
+        $("#time_left .trend").attr("src", "");        
+    }
+    
+    //update icon
+    if (stats.pv < PV_MIN){
+        $('#pv img').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/pv1.png');
+        $('#pv_left .icon').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/pv1.png');
+    } else if(stats.pv < PV_MID){
+        $('#pv img').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/pv2.png');
+        $('#pv_left .icon').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/pv2.png');
+    } else {
+        $('#pv img').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/pv3.png');
+        $('#pv_left .icon').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/pv3.png');
+    }
+    
+    if (stats.money < MONEY_MIN){
+        $('#money img').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/money1.png');
+        $('#money_left .icon').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/money1.png');
+    } else if(stats.money < MONEY_MIN){
+        $('#money img').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/money2.png');
+        $('#money_left .icon').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/money2.png');
+    } else {
+        $('#money img').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/money3.png');
+        $('#money_left .icon').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/money3.png');
+    }
+    
+    if (stats.time < TIME_MIN){
+        $('#time img').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/time1.png');
+        $('#time_left .icon').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/time1.png');
+    } else if(stats.time < TIME_MID){
+        $('#time img').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/time2.png');
+        $('#time_left .icon').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/time2.png');
+    } else {
+        $('#time img').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/time3.png');
+        $('#time_left .icon').attr('src', 'http://mallocworks.s3.amazonaws.com/hackday2012S/img/time3.png');
+    }    
+        
+         
+    //recreate tables
+    var t=stats.mods.length;
+    var l=stats.mods.length>5? 5: stats.mods.length;
+    for (var i=0; i<t; i++){
+        for (var j=0; j<t-i; j++){
+            if (stats.mods[i].data.pv > stats.mods[j].data.pv){
+                var tmp=stats.mods[i]; 
+                stats.mods[i]=stats.mods[j];
+                stats.mods[j]=tmp;
+            }
+        }
+    }
+    var pv_div=$("#plot_pv").html(" ");
+    var pv_plot=$('<table class="plot" cellspacing="0">'); 
+    for(var i=0; i<l; i++){
+        th=$('<th>').text(stats.mods[i].mod_id); sp=$('<span>').text(stats.mods[i].data.pv); td=$('<td>').append(sp); tr=$('<tr>').append(th).append(td); pv_plot.append(tr);        
+    }
+    pv_div.append(pv_plot);
+    
+    var t=stats.mods.length;
+    for (var i=0; i<t; i++){
+        for (var j=0; j<t-i; j++){
+            if (stats.mods[i].data.money > stats.mods[j].data.money){
+                var tmp=stats.mods[i]; 
+                stats.mods[i]=stats.mods[j];
+                stats.mods[j]=tmp;
+            }
+        }
+    }
+    var money_div=$("#plot_money").html(" ");
+    var money_plot=$('<table class="plot" cellspacing="0">'); 
+    for(var i=0; i<l; i++){
+        th=$('<th>').text(stats.mods[i].mod_id); sp=$('<span>').text(stats.mods[i].data.money); td=$('<td>').append(sp); tr=$('<tr>').append(th).append(td); money_plot.append(tr);        
+    } 
+    money_div.append(money_plot);    
+    
+    var t=stats.mods.length;
+    for (var i=0; i<t; i++){
+        for (var j=0; j<t-i; j++){
+            if (stats.mods[i].data.time > stats.mods[j].data.time){
+                var tmp=stats.mods[i]; 
+                stats.mods[i]=stats.mods[j];
+                stats.mods[j]=tmp;
+            }
+        }
+    }
+    var time_div=$("#plot_time").html(" ");
+    var time_plot=$('<table class="plot" cellspacing="0">'); 
+    for(var i=0; i<l; i++){
+        th=$('<th>').text(stats.mods[i].mod_id); sp=$('<span>').text(stats.mods[i].data.time); td=$('<td>').append(sp); tr=$('<tr>').append(th).append(td); time_plot.append(tr);        
+    }    
+    time_div.append(time_plot);
+
+    drawGraphs();
+    
+    //TODO
+    if (isFirst!=null && !isFirst){
+        createGrowl("hi", "hi2", false);
+    }
+}
+    
+
+var drawGraphs = function(target_name){
+    if (null==target_name || "pv"==target_name){ 
+        $('#plot_pv td').graphup({
+            min: 0,
+            cleaner: 'strip',
+            painter: 'bars',
+            colorMap: [[145,89,117], [102,0,51]]
+        });
+    }
+    if (null==target_name || "time"==target_name){ 
+        $('#plot_time td').graphup({
+            min: 0,
+            cleaner: 'strip',
+            painter: 'bars',
+            colorMap: [[145,89,117], [102,0,51]]
+        });    
+    }
+    if (null==target_name || "money"==target_name){ 
+        $('#plot_money td').graphup({
+            min: 0,
+            cleaner: 'strip',
+            painter: 'bars',
+            colorMap: [[145,89,117], [102,0,51]]
+        });
+    }
+}
+    
+
+var setupStatsBar = function(){
+    
+    original_stats = calculateAll(); 
+    
+    var th, td, tr, sp;    
+    var pv_left=$('<div class="stat_left" id="pv_left">')
+        .append('<center><img class="icon" src=""></center>').append("<br/>")
+        .append('<img class="trend"src="">')
+        .append('<span class="statnow">'+original_stats.total_pv+'</span>')
+        .append('<span class="unit">%</span>').append("<br/>")
+        .append('<span class="from">(from <span class="orig">'+original_stats.total_pv+'</span> %)</span>').append("<br/><br/><br/>");
+    var pv_right=$('<div class="stat_right" id="pv_right">')
+        .append('<h3>Top 5 Popular Modules</h3>')
+        .append('<div id="plot_pv">')
+        .append("<br/>")
+        .append('<span class="updated">updated: 25May,2012</span>');    
+    var pv=$('<div id="pv_stat">').append(pv_left).append(pv_right);
+    $('#stagearea').append(pv);
+    
+
+    var time_left=$('<div class="stat_left" id="time_left">')
+        .append('<center><img class="icon" src=""></center>').append("<br/>")
+        .append('<img class="trend"src="">')
+        .append('<span class="statnow">'+original_stats.total_time+'</span>')
+        .append('<span class="unit">ms</span>').append("<br/>")
+        .append('<span class="from">(from <span class="orig">'+original_stats.total_time+'</span> ms)</span>').append("<br/><br/><br/>");
+    var time_right=$('<div class="stat_right" id="time_right">')
+        .append('<h3>Top 5 Time Consuming Modules</h3>')
+        .append('<div id="plot_time">')
+        .append("<br/>")
+        .append('<span class="updated">updated: 25May,2012</span>');    
+    var time=$('<div id="time_stat">').append(time_left).append(time_right);
+    $('#stagearea').append(time);
+    
+    //money data
+    var money_left=$('<div class="stat_left" id="money_left">')
+        .append('<center><img class="icon" src=""></center>').append("<br/>")
+        .append('<img class="trend"src="">')
+        .append('<span class="statnow">'+original_stats.total_money+'</span>')
+        .append('<span class="unit">USD</span>').append("<br/>")
+        .append('<span class="from">(from <span class="orig">'+original_stats.total_money+'</span> USD)</span>').append("<br/><br/><br/>");
+    var money_right=$('<div class="stat_right" id="money_right">')
+        .append('<h3>Top 5 Profiting Modules</h3>')
+        .append('<div id="plot_money">')
+        .append("<br/>")
+        .append('<span class="updated">updated: 25May,2012</span>');    
+    var money=$('<div id="money_stat">').append(money_left).append(money_right);
+    $('#stagearea').append(money);
+    
+    
+    //update graphs
+    updateStatsBar(true);
+}
 
 
 var setupTooltips = function(item, mod_id){       
@@ -245,9 +538,17 @@ var setupTooltips = function(item, mod_id){
     }
 
     if (mod_id==null){
-        mod_id="NT1";  //for debuging
+        mod_id=$('#instance_module').val();
+        if (mod_id==undefined){
+            return false;
+        }
     }
+    
+    //find fieldname can be tricky
     field_name=item.find(":text").attr("name");
+    if (field_name==undefined){
+        field_name= item.find("textarea").attr("name");
+    }
   
     if (typeof data[mod_id]=="undefined" 
         || typeof data[mod_id]["exp"][field_name]=="undefined"
@@ -276,7 +577,93 @@ var setupTooltips = function(item, mod_id){
         var p = $('<span>').text(data[mod_id]["exp"][field_name]["html"]);
         var d = $('<div id="tooltip_'+id+'">').append(p);
     }
-    $('body').append(d);
+    $('#stagearea').append(d);
+    
+    //run qtip
+    item.qtip({
+        content: {
+            // Set the text to an image HTML string with the correct src URL to the loading image you want to use
+            text: $('#tooltip_'+item.attr("id")),
+            title: {
+                text: item.find("label").text(),
+                button: false
+            }
+        },
+        position: {
+            at: 'left top', // Position the tooltip above the link
+            my: 'right top',
+            viewport: $(window), // Keep the tooltip on-screen at all times
+            effect: true, // Disable positioning animation
+            adjust: { x: -650 },
+        },
+        show: {
+            event: 'hover',
+            solo: true // Only show one tooltip at a time
+        },
+        hide: 'unfocus',
+        style: {
+            //classes: 'ui-tooltip-wiki ui-tooltip-light ui-tooltip-shadow'
+        }
+    });
+    
+    return true;
+};
+
+
+var setupModuleTooltips = function(item){       
+    if (undefined==item || null==item){
+        return false;
+    }
+    
+    mod_id=item.find('input').attr('id');
+    if (undefined==mod_id || null==mod_id){
+        return false;
+    }
+    
+    //remove "Config"
+    var i = mod_id.indexOf("Config");
+    if (i>0){
+        mod_id=mod_id.substr(0,i);
+    }
+  
+    if (typeof data[mod_id]=="undefined"){
+        console.log('>>error findig record for module "'+mod_id+'"');
+        return false;
+    }
+
+    var tr1=$('<tr><th><img src="http://mallocworks.s3.amazonaws.com/hackday2012S/img/time2.png"/>Time:</th><td>'+data[mod_id].time+'ms</td></tr>');
+    var tr2=$('<tr><th><img src="http://mallocworks.s3.amazonaws.com/hackday2012S/img/pv1.png"/>CTR:</th><td>'+data[mod_id].pv+'%</td></tr>');
+    var tr3=$('<tr><th><img src="http://mallocworks.s3.amazonaws.com/hackday2012S/img/money1.png"/>Revenue:</th><td>'+data[mod_id].money+'USD</td></tr>');
+    var table=$('<table class="mtooltip">').append(tr1).append(tr2).append(tr3);
+    var d = $('<div id="mtooltip_'+mod_id+'">').append(table);
+    $('#stagearea').append(d);          
+                    
+    //run qtip
+    item.qtip({
+        content: {
+            // Set the text to an image HTML string with the correct src URL to the loading image you want to use
+            text: $("#mtooltip_"+mod_id),
+            title: {
+                text: mod_id,
+                button: false
+            }
+        },
+        position: {
+            at: 'bottom center', // Position the tooltip above the link
+            my: 'top center',
+            viewport: $(window), // Keep the tooltip on-screen at all times
+            effect: true, // Disable positioning animation
+            adjust: {},
+        },
+        show: {
+            event: 'hover',
+            solo: true // Only show one tooltip at a time
+        },
+        hide: 'unfocus',
+        style: {
+            //classes: 'ui-tooltip-wiki ui-tooltip-light ui-tooltip-shadow'
+        }
+    });
     
     return true;
 };
@@ -286,6 +673,7 @@ var calculateAll = function(){
     var total_time=0;
     var total_pv=0;
     var total_money=0;
+    var mods=[];
     
     $(".module").each(function(){
         var classStr = $(this).attr("class");
@@ -303,11 +691,13 @@ var calculateAll = function(){
                 total_time = total_time+data[mod_id]["time"];
                 total_pv = total_pv+data[mod_id]["pv"];
                 total_money = total_money+data[mod_id]["money"];
+                
+                mods.push({"mod_id": mod_id, "data": data[mod_id]});
             }
         }
     });
     console.log(">>total time/pv/money: "+total_time +"(ms)/"+total_pv+"/"+total_money);
-    return time;
+    return {time: total_time, pv: total_pv, money: total_money, mods: mods};
 }
 
 
@@ -338,7 +728,7 @@ var setupGrowl = function(){
                 effect: function(api, newPos) {
                     // Animate as usual if the window element is the target
                     $(this).animate(newPos, {
-                        duration: 200,
+                        duration: 1000,
                         queue: false
                     });
  
