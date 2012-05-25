@@ -20,163 +20,183 @@ GM_addStyle(".statnow{font-size: 36px; line-height: 45px;} .green{color:green;} 
 GM_addStyle(".plot th { width:4em; text-align:right; padding-right:10px;} .plot td { width:20em; text-align:right; } .plot span { padding:0.1em 0.2em; background:rgba(255,255,255,0.5); -moz-border-radius:2px; } .plot .bar { -moz-border-radius-topright:5px; -moz-border-radius-bottomright:5px; -webkit-border-top-right-radius:5px; -webkit-border-bottom-right-radius:5px; }");
 GM_addStyle(".mtooltip{line-height: 18px;} .mtooltip img{height: 15px; padding-right: 5px;} .mtooltip th{font-weight: bold;}");
 
-var PV_MIN = 100;
-var PV_MID = 1000;
-var MONEY_MIN = 100;
-var MONEY_MID = 1000;
-var TIME_MIN = 100;
-var TIME_MID = 1000;
+
+var PV_MIN = 20;
+var PV_MID = 30;
+var MONEY_MIN = 13;
+var MONEY_MID = 15;
+var TIME_MIN = 1400;
+var TIME_MID = 1500;
 
 
 var data={
-    "TBS2": {
+    "MediaSocialChromeFriends": {
         "time": 121,
-        "pv"  : 113,
-        "money" : 341,
+        "pv"  : 1.32,
+        "money" : 0,
         "exp" : {
-            "layout_title": {
-                "html": "hihi from moduleA fieldA",
-                "def" : "hihi"
+            "A": {
+                "html": "",
+                "def" : ""
+            }            
+        }
+    },
+    "MediaSocialChromeLogin": {
+        "time": 42,
+        "pv"  : 2.32,
+        "money" : 0,
+        "exp" : {
+            "A": {
+                "html": "",
+                "def" : ""
+            }            
+        }
+    },
+    "MediaCarouselPhotoGalleriesCA": {
+        "time": 117,
+        "pv"  : 8.23,
+        "money" : 0,
+        "exp" : {
+            "A": {
+                "html": "",
+                "def" : ""
+            }            
+        }
+    },
+    "MediaFeaturedCarousel": {
+        "time": 15,
+        "pv"  : 6.11,
+        "money" : 0,
+        "exp" : {
+            "A": {
+                "html": "",
+                "def" : ""
+            }            
+        }
+    },
+    "MediaTopList": {
+        "time": 19,
+        "pv"  : 5.134,
+        "money" : 0,
+        "exp" : {
+            "A": {
+                "html": "",
+                "def" : ""
+            }            
+        }
+    },
+    "MediaFeaturedListEditorial": {
+        "time": 5,
+        "pv"  : 3.118,
+        "money" : 0,
+        "exp" : {
+            "A": {
+                "html": "",
+                "def" : ""
+            }            
+        }
+    },
+    "MediaCustomCss": {
+        "time": 2,
+        "pv"  : 0,
+        "money" : 0,
+        "exp" : {
+            "A": {
+                "html": "",
+                "def" : ""
+            }            
+        }
+    },
+    "MediaSocialChromePromos": {
+        "time": 9,
+        "pv"  : 2.2,
+        "money" : 0,
+        "exp" : {
+            "A": {
+                "html": "",
+                "def" : ""
+            }            
+        }
+    },
+    "MediaSlideshowAttribution": {
+        "time": 79,
+        "pv"  : 2.24,
+        "money" : 0,
+        "exp" : {
+            "A": {
+                "html": "",
+                "def" : ""
+            }            
+        }
+    },
+    "LREC": {
+        "time": 6,
+        "pv"  : 0.434,
+        "money" : 12,
+        "exp" : {            
+        }
+    },
+    "MediaComicSlideshowSpotlight": {
+        "time": 134,
+        "pv"  : 15.324,
+        "money" : 0,
+        "exp" : {
+            "num_per_page": {
+                "html": '<table class="mtooltip"><tr><th>Topic:</th><td>analysis the impact of number per page to CTR</td></tr><tr><th>Findings:</th><td>setting num_per_page to 5 increase CTR by 3%</td></tr><tr><th>Twiki:</th><td><a href="twiki.corp.yahoo.com/view/Lego/PhotoBucketTestResults">twiki.corp.yahoo.com/view/Lego/PhotoBucketTestResults</a></td></tr></table>',
+                "def" : "5"
             },
-            "inherit_target": {
-                "html": "hihi from moduleA fieldB",
-                "def" : null
+            "num_rows":{
+                "html": '<table class="mtooltip"><tr><th>Topic:</th><td>bucket test number per num to perf</td></tr><tr><th>Findings:</th><td>setting to 1 increase performance</td></tr><tr><th>Twiki:</th><td><a href="twiki.corp.yahoo.com/view/Lego/PhotoBucketTestResults">twiki.corp.yahoo.com/view/Lego/PhotoBucketTestResults</a></td></tr></table>',
+                "def": "1"
+            }
+        }
+    },
+    "MediaSlideshowsThumbs": {
+        "time": 156,
+        "pv"  : 3.09,
+        "money" : 0,
+        "exp" : {
+            "A": {
+                "html": "",
+                "def" : ""
+            }            
+        }
+    },
+    "MediaComicsThumbs": {
+        "time": 129,
+        "pv"  : 2.46,
+        "money" : 0,
+        "exp" : {
+            "A": {
+                "html": "",
+                "def" : ""
             }            
         }
     },
     "NT1": {
-        "time": 121,
-        "pv"  : 113,
-        "money" : 341,
+        "time": 4,
+        "pv"  : 0.08,
+        "money" : 4,
         "exp" : {
-            "layout_title": {
-                "html": "hihi from moduleA fieldA",
-                "def" : "hihi"
-            },
-            "inherit_target": {
-                "html": "hihi from moduleA fieldB",
-                "def" : null
+            "A": {
+                "html": "",
+                "def" : ""
             }            
         }
     },
-    "MediaEmpty": {
-        "time": 4560,
-        "pv"  : 40,
-        "money" : 451,
+    "MediaCarouselPhotoGalleryPageFlavored":{
+        "time": 134,
+        "pv"  : 15.324,
+        "money" : 0,
         "exp" : {
-            "fieldA": {
-                "html": "hihi from moduleA fieldA",
-                "def" : "hihi"
+            "num_per_page": {
+                "html": '<table class="mtooltip"><tr><th>Topic:</th><td>analysis the impact of number per page to CTR</td></tr><tr><th>Findings:</th><td>setting num_per_page to 5 increase CTR by 3%</td></tr><tr><th>Twiki:</th><td><a href="twiki.corp.yahoo.com/view/Lego/PhotoBucketTestResults">twiki.corp.yahoo.com/view/Lego/PhotoBucketTestResults</a></td></tr></table>',
+                "def" : "5"
             },
-            "fieldB": {
-                "html": "hihi from moduleA fieldB",
-                "def" : null
-            }            
-        }
-    },
-    "MediaGalleryListTabbedCA": {
-        "time": 341,
-        "pv"  : 761,
-        "money" : 21,
-        "exp" : {
-            "fieldA": {
-                "html": "hihi from moduleA fieldA",
-                "def" : "hihi"
-            },
-            "fieldB": {
-                "html": "hihi from moduleA fieldB",
-                "def" : null
-            }            
-        }
-    },
-    "MediaCOKEMostViewedPhotos": {
-        "time": 671,
-        "pv"  : 2131,
-        "money" : 231,
-        "exp" : {
-            "fieldA": {
-                "html": "hihi from moduleA fieldA",
-                "def" : "hihi"
-            },
-            "fieldB": {
-                "html": "hihi from moduleA fieldB",
-                "def" : null
-            }            
-        }
-    },    
-    "LREC": {
-        "time": 8901,
-        "pv"  : 71,
-        "money" : 861,
-        "exp" : {
-            "fieldA": {
-                "html": "hihi from moduleA fieldA",
-                "def" : "hihi"
-            },
-            "fieldB": {
-                "html": "hihi from moduleA fieldB",
-                "def" : null
-            }            
-        }
-    },
-    "MREC": {
-        "time": 51,
-        "pv"  : 671,
-        "money" : 441,
-        "exp" : {
-            "fieldA": {
-                "html": "hihi from moduleA fieldA",
-                "def" : "hihi"
-            },
-            "fieldB": {
-                "html": "hihi from moduleA fieldB",
-                "def" : null
-            }            
-        }
-    },
-    "MIP": {
-        "time": 341,
-        "pv"  : 21,
-        "money" : 31,
-        "exp" : {
-            "fieldA": {
-                "html": "hihi from moduleA fieldA",
-                "def" : "hihi"
-            },
-            "fieldB": {
-                "html": "hihi from moduleA fieldB",
-                "def" : null
-            }            
-        }
-    },
-    "MediaAdsDarla": {
-        "time": 161,
-        "pv"  : 751,
-        "money" : 31,
-        "exp" : {
-            "fieldA": {
-                "html": "hihi from moduleA fieldA",
-                "def" : "hihi"
-            },
-            "fieldB": {
-                "html": "hihi from moduleA fieldB",
-                "def" : null
-            }            
-        }
-    },
-    "MediaFreeHtmlEditorial": {
-        "time": 31,
-        "pv"  : 15,
-        "money" : 31,
-        "exp" : {
-            "instance_title": {
-                "html": "hihi from moduleA fieldA",
-                "def" : "hihi"
-            },
-            "instance_description": {
-                "html": "hihi from moduleA fieldB",
-                "def" : null
-            }            
+            "num_rows":{
+                "html": '<table class="mtooltip"><tr><th>Topic:</th><td>bucket test number per num to perf</td></tr><tr><th>Findings:</th><td>setting to 1 increase performance</td></tr><tr><th>Twiki:</th><td><a href="twiki.corp.yahoo.com/view/Lego/PhotoBucketTestResults">twiki.corp.yahoo.com/view/Lego/PhotoBucketTestResults</a></td></tr></table>',
+                "def": "1"
+            }
         }
     }
 };
@@ -290,16 +310,42 @@ $(document).ready(function()
     $('body').keypress(function(e) { if(e.keyCode == 13) { updateStatsBar(true); }}); //another trick
     
     
-    //FIXME: experiment results in module page
+    //FIXME: experiment results in edit module page
     $('.yet-bd > ol > .field-wrapper').each(function(){ setupTooltips($(this)); });
     $('.yet-bd > fieldset > ol > .field-wrapper').each(function(){ setupTooltips($(this)); });
     
-    //FIXME: in new module page
+    //FIXME: experiment results in new module page
     $('#module_category').change(function(){
         $('li[id^=yui-gen]').each(function(){ setupModuleTooltips($(this)); });
+        $('li[id^=yui-gen]').click(function(){
+            mod_id=$(this).find('input').attr('id');
+            if (undefined!=mod_id && null!=mod_id){
+                //remove "Config"
+                var i = mod_id.indexOf("Config");
+                if (i>0){
+                    mod_id=mod_id.substr(0,i);
+                }
+                $('.yet-bd > ol > .field-wrapper').each(function(){ setupTooltips($(this), mod_id); });
+                $('.yet-bd > fieldset > ol > .field-wrapper').each(function(){ setupTooltips($(this), mod_id); });
+            }
+        });    
+
     });
     $('li[id^=yui-gen]').each(function(){ setupModuleTooltips($(this)); }); //for the first set
+    $('li[id^=yui-gen]').click(function(){
+        mod_id=$(this).find('input').attr('id');
+        if (undefined!=mod_id && null!=mod_id){
+            //remove "Config"
+            var i = mod_id.indexOf("Config");
+            if (i>0){
+                mod_id=mod_id.substr(0,i);
+            }
+            $('.yet-bd > ol > .field-wrapper').each(function(){ setupTooltips($(this), mod_id); });
+            $('.yet-bd > fieldset > ol > .field-wrapper').each(function(){ setupTooltips($(this), mod_id); });
+        }
+    });    
 
+    
 });
 
 
@@ -484,9 +530,8 @@ var setupStatsBar = function(){
     var th, td, tr, sp;    
     var pv_left=$('<div class="stat_left" id="pv_left">')
         .append('<center><img class="icon" src=""></center>').append("<br/>")
-        .append('<img class="trend"src="">')
-        .append('<span class="statnow">'+original_stats.total_pv+'</span>')
-        .append('<span class="unit">%</span>').append("<br/>")
+        .append('<center><img class="trend"src=""><span class="statnow">'+original_stats.total_pv+'</span><span class="unit"> %</span></center>')
+        .append("<br/>")
         .append('<span class="from">(from <span class="orig">'+original_stats.total_pv+'</span> %)</span>').append("<br/><br/><br/>");
     var pv_right=$('<div class="stat_right" id="pv_right">')
         .append('<h3>Top 5 Popular Modules</h3>')
@@ -499,9 +544,8 @@ var setupStatsBar = function(){
 
     var time_left=$('<div class="stat_left" id="time_left">')
         .append('<center><img class="icon" src=""></center>').append("<br/>")
-        .append('<img class="trend"src="">')
-        .append('<span class="statnow">'+original_stats.total_time+'</span>')
-        .append('<span class="unit">ms</span>').append("<br/>")
+        .append('<center><img class="trend"src=""><span class="statnow">'+original_stats.total_time+'</span><span class="unit"> ms</span></center>')
+        .append("<br/>")
         .append('<span class="from">(from <span class="orig">'+original_stats.total_time+'</span> ms)</span>').append("<br/><br/><br/>");
     var time_right=$('<div class="stat_right" id="time_right">')
         .append('<h3>Top 5 Time Consuming Modules</h3>')
@@ -514,10 +558,9 @@ var setupStatsBar = function(){
     //money data
     var money_left=$('<div class="stat_left" id="money_left">')
         .append('<center><img class="icon" src=""></center>').append("<br/>")
-        .append('<img class="trend"src="">')
-        .append('<span class="statnow">'+original_stats.total_money+'</span>')
-        .append('<span class="unit">USD</span>').append("<br/>")
-        .append('<span class="from">(from <span class="orig">'+original_stats.total_money+'</span> USD)</span>').append("<br/><br/><br/>");
+        .append('<center><img class="trend"src=""><span class="statnow">'+original_stats.total_money+'</span><span class="unit"> cpm</span></center>')
+        .append("<br/>")
+        .append('<span class="from">(from <span class="orig">'+original_stats.total_money+'</span> cpm)</span>').append("<br/><br/><br/>");
     var money_right=$('<div class="stat_right" id="money_right">')
         .append('<h3>Top 5 Profiting Modules</h3>')
         .append('<div id="plot_money">')
@@ -540,7 +583,7 @@ var setupTooltips = function(item, mod_id){
     if (mod_id==null){
         mod_id=$('#instance_module').val();
         if (mod_id==undefined){
-            return false;
+            return mod_id="MediaSlideshowAttribution"; //a trick
         }
     }
     
@@ -564,17 +607,17 @@ var setupTooltips = function(item, mod_id){
     var def = data[mod_id]["exp"][field_name]["def"];
     if (def!=null){        
         var a = $('<a href="#">')
-            .text('click to set field to '+def)
+            .text('click to set field to "'+def+'"')
             .click([id, def], function(event){
                 var input_box = $('#'+id).find(':text');
                 if (null!=input_box){
                     input_box.val(def);
                 }
             });
-        var p = $('<span>').text(data[mod_id]["exp"][field_name]["html"]);
+        var p = $('<span>').html(data[mod_id]["exp"][field_name]["html"]);
         var d = $('<div id="tooltip_'+id+'">').append(p).append("<br>").append(a);
     } else {
-        var p = $('<span>').text(data[mod_id]["exp"][field_name]["html"]);
+        var p = $('<span>').html(data[mod_id]["exp"][field_name]["html"]);
         var d = $('<div id="tooltip_'+id+'">').append(p);
     }
     $('#stagearea').append(d);
@@ -585,7 +628,7 @@ var setupTooltips = function(item, mod_id){
             // Set the text to an image HTML string with the correct src URL to the loading image you want to use
             text: $('#tooltip_'+item.attr("id")),
             title: {
-                text: item.find("label").text(),
+                text: "Experiment Findings",
                 button: false
             }
         },
@@ -594,7 +637,7 @@ var setupTooltips = function(item, mod_id){
             my: 'right top',
             viewport: $(window), // Keep the tooltip on-screen at all times
             effect: true, // Disable positioning animation
-            adjust: { x: -650 },
+            adjust: { x: -850 },
         },
         show: {
             event: 'hover',
@@ -633,7 +676,7 @@ var setupModuleTooltips = function(item){
 
     var tr1=$('<tr><th><img src="http://mallocworks.s3.amazonaws.com/hackday2012S/img/time2.png"/>Time:</th><td>'+data[mod_id].time+'ms</td></tr>');
     var tr2=$('<tr><th><img src="http://mallocworks.s3.amazonaws.com/hackday2012S/img/pv1.png"/>CTR:</th><td>'+data[mod_id].pv+'%</td></tr>');
-    var tr3=$('<tr><th><img src="http://mallocworks.s3.amazonaws.com/hackday2012S/img/money1.png"/>Revenue:</th><td>'+data[mod_id].money+'USD</td></tr>');
+    var tr3=$('<tr><th><img src="http://mallocworks.s3.amazonaws.com/hackday2012S/img/money1.png"/>Revenue:</th><td>'+data[mod_id].money+'cpm</td></tr>');
     var table=$('<table class="mtooltip">').append(tr1).append(tr2).append(tr3);
     var d = $('<div id="mtooltip_'+mod_id+'">').append(table);
     $('#stagearea').append(d);          
@@ -670,7 +713,7 @@ var setupModuleTooltips = function(item){
 
 
 var calculateAll = function(){
-    var total_time=0;
+    var total_time=1200;
     var total_pv=0;
     var total_money=0;
     var mods=[];
@@ -696,6 +739,8 @@ var calculateAll = function(){
             }
         }
     });
+    total_pv=roundNumber(total_pv, 2);
+    
     console.log(">>total time/pv/money: "+total_time +"(ms)/"+total_pv+"/"+total_money);
     return {time: total_time, pv: total_pv, money: total_money, mods: mods};
 }
@@ -831,4 +876,9 @@ var getRandomString = function() {
 		randomstring += chars.substring(rnum,rnum+1);
 	}
 	return randomstring;
+}
+    
+function roundNumber(num, dec) {
+	var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+	return result;
 }

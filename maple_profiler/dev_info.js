@@ -68,14 +68,14 @@ MP.prototype={
         }
 
         var regex=new RegExp(/decorateDevInfo/);
+	var lines=data.match(regex);
         var line_total=lines.length;
         for(var i=0; i<line_total; i++){
         	if (lines[i].match(regex)){
         		console.log("BINGO");
-				fs.writeFile("data_json.json", profileStr);
-			
-    	        args.that.parseXML(profileStr, args.that.getModules, args);
-        	    return false	
+			fs.writeFile("data_json.json", profileStr);
+    	        	args.that.parseXML(profileStr, args.that.getModules, args);
+        	    	return false	
         	} else {
         		//console.log(i);
         	}
