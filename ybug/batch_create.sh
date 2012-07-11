@@ -37,7 +37,7 @@ read stitle
 while [[ $stitle ]]; do
     echo -n "description (as titled):"
     read sdesc
-    if [ ! $sdesc ]; then
+    if [[ ! $sdesc ]]; then
         sdesc="as titled"
     fi
     echo -n "assignee byID (ycheung):"
@@ -57,3 +57,6 @@ while [[ $stitle ]]; do
     echo -n "title (empty to quit)"
     read stitle
 done
+
+echo ""
+echo "that's it?  I am so disappointed!"
