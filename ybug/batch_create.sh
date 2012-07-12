@@ -40,16 +40,18 @@ while [[ $stitle ]]; do
     if [[ ! $sdesc ]]; then
         sdesc="as titled"
     fi
-    echo -n "assignee byID (ycheung):"
+    echo -n "assignee byID (lego-photo):"
     read sbyid
     if [ -z $sbyid ]; then
-        sbyid="ycheung"
+        sbyid="lego-photo"
     fi
+    echo -n "dependent ticket (comman seperated):"
+    read sdependent
 
     echo ""
     echo -n ">>>>creating.............."
     echo ""
-    ybug create --product=$sprod --component=$scomp --bugtype=$stype --target_milestone="$smile" --priority=$sprior --short_desc="$stitle" --comment="$sdesc" --assigned_to=$sbyid@yahoo-inc.com
+    ybug create --product=$sprod --component=$scomp --bugtype=$stype --target_milestone="$smile" --priority=$sprior --short_desc="$stitle" --comment="$sdesc" --assigned_to=$sbyid@yahoo-inc.com --dependson=$sdependent
 
     icount=$((icount+1))
     echo ""
