@@ -1,0 +1,1 @@
+*/1 * * * * /usr/bin/php /websites/ci.mallocworks.com/deploy.php >> /websites/ci.mallocworks.com/crontab_logs/push.log
