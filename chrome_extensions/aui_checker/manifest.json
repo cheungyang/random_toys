@@ -1,0 +1,36 @@
+{
+    "manifest_version": 2,
+
+    "name": "AUI checker",
+    "description": "Checks version of AUI js/template and its update status",
+    "version": "1.0.12",
+
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.amazon.com/*"
+            ],
+            "js": ["js/getAssetNames.js"],
+            "run_at": "document_idle",
+            "all_frames": false
+        }
+    ],
+
+    "background": {
+        "scripts": ["js/checkAUI.js"]
+    },
+
+    "page_action": {
+        "default_icon": {
+            "19": "images/icon19.png",
+            "38": "images/icon38.png"
+        },
+        "default_title": "AUI Checker",
+        "default_popup": "default.html"
+    },
+
+    "permissions": [
+        "*://*.amazon.com/*",
+        "storage"
+    ]
+}
