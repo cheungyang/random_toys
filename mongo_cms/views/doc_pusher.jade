@@ -1,0 +1,70 @@
+
+
+h1= title
+
+#listing
+  #new
+    form(method="get",action="/new")
+      input(type="submit",value="New")
+
+  ul
+    each oneitem in data.listing
+      li
+        a(href="/"+oneitem._id.toHexString())!= oneitem._id.toHexString()
+
+
+
+#record
+  #flash
+    ul
+      each oneflash in flash
+        li
+          != oneflash  
+
+  if typeof data.main_data!="undefined"
+
+    //+HISTORY
+    if typeof data.asso_data.histories!="undefined"
+      - var i=1;
+      select(id="select_history_view")     
+        option(value=0) latest
+        each onehist in data.asso_data.histories
+          option(value=i)
+            != onehist._modified_at
+          - i++; 
+
+    //+BRANCH
+    if typeof data.asso_data.branches!="undefined"
+      - var i=1;
+      select(id="select_branch_view")     
+        option(value=0) main
+        each onebranch in data.asso_data.branches
+          option(value=i)
+            != onebranch
+          - i++;
+
+    form(method="post")
+      textarea(id="textarea_doc",name="doc",rows="20",cols="50")= JSON.stringify(data.main_data, null, 4) + '\n'
+      br
+      
+      //+BRANCH
+      label(for="text_new_branch") Save as branch
+      input(type="text",id="text_branch_name",name="branch")
+      input(type="submit",value="Branch",id="btn_branch")
+      
+      //+BRANCH
+      input(type="submit",value="Save as current branch")
+      //-BRANCH
+      //input(type="submit",value="Save")
+
+
+script
+//+HISTORY 
+//  if (typeof data.asso_data!="undefined" && typeof data.asso_data.histories!="undefined")
+  var history = !{JSON.stringify(data.asso_data.histories)};
+  history.unshift(!{JSON.stringify(data.main_data)});
+
+//++BRANCH
+//  if (typeof data.asso_data!="undefined" && typeof data.asso_data.branches!="undefined")
+//    var branches = !{JSON.stringify(data.asso_data.branches)};
+//    branches.unshift(!{JSON.stringify(data.main_data)});
